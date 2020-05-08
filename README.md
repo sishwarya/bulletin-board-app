@@ -1,1 +1,1 @@
-# bulletin-board-app
+# bulletin-board-app -- sample
