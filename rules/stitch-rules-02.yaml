@@ -1,0 +1,24 @@
+kind: Rules
+metadata:
+  namespace: k8s-add-labels
+spec:
+  - name: "k8s.AddPost-demo5"
+    condition:
+      deployedType: k8s.Resources
+      postProcessing: true
+      expression: "#ctx.currentDeployedApplication != null && #ctx.currentDeployedApplication.environment.name == 'demo5'"
+    processor:
+      - type: addYamlObject
+        description: "Using add yaml object processor to add Ingress"
+        merge:
+          type: none
+        parameters:
+          yaml: |
+            apiVersion: networking.k8s.io/v1beta1
+            kind: Ingress
+            metadata:
+              name: test-ingress
+            spec:
+              backend:
+                serviceName: testsvc
+                servicePort: 80
